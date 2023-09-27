@@ -1,0 +1,51 @@
+@keyframes slide{
+                0%, 22%{
+                    transform: translateY(0);
+                }                
+                25%, 47%{
+                    transform: translateY(-50vh);
+                }                
+                50%, 72% {
+                    transform: translateY(-100vh);                    
+                }                
+                75%, 97% {
+                    transform: translateY(-150vh);                    
+                }
+                100%{
+                    transform: translateY(0);
+                }                       
+            }
+
+O que fizemos acima foi simplesmente agrupar os valores em porcentagem usando vírgulas. Isso facilita bastante a manutenção. Mas ainda tem um valor de translate duplicado que poderia ser agrupado. Consegue adivinhar qual é?
+
+veja que não há necessidade dos valores de porcentagem serem progressivos, ou seja, do 0% para o 100% na ordem crescente.
+
+Resumindo: o código abaixo é perfeitamente válido, funcional e menos verboso.
+
+@keyframes slide{
+                0%, 22%, 100%{
+                    transform: translateY(0);
+                }                
+                25%, 47%{
+                    transform: translateY(-50vh);
+                }                
+                50%, 72% {
+                    transform: translateY(-100vh);                    
+                }                
+                75%, 97% {
+                    transform: translateY(-150vh);                    
+                }              
+            }
+
+Melhorando a performance (se necessário)
+
+Caso sua animação fique dando uns "soquinhos", você pode tentar arrumar utilizando uma propriedade chamada will-change. Use esta propriedade somente no elemento com problemas.
+
+O uso indiscriminado dessa propriedade por causar mais problema do que solução.
+
+Abaixo um exemplo de uso de sua utilização
+
+#slide-interno{
+  will-change: transform
+}
+Ou seja, dizemos para o browser para ele se preparar pois o elemento #slide-interno sofrerá uma mudança na sua propriedade transform.
